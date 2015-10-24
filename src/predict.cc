@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h> // in case you want to use e.g. memset
 #include <assert.h>
+#include <time.h>
+#include <math.h>
 
 #include "branch.h"
 #include "trace.h"
@@ -50,8 +52,9 @@ int main (int argc, char *argv[]) {
 		if (!t) break;
 
 		// send this trace to the competitor's code for prediction
-
+		//fprintf(stderr, "sending to predict\n");
 		branch_update *u = p->predict (t->bi);
+		//fprintf(stderr, "out of predict\n");
 
 		// collect statistics for a conditional branch trace
 
@@ -67,6 +70,7 @@ int main (int argc, char *argv[]) {
 		}
 
 		// update competitor's state
+		//fprintf(stderr, "sending to update\n");
 
 		p->update (u, t->taken, t->target);
 	}
